@@ -217,22 +217,6 @@ nuclei -update-templates
 python -m cve_cli.cli nuclei-scan http://scanme.nmap.org
 ```
 
-## Hướng dẫn dùng Openvas
-
-Khả thi? Có, nhưng đòi hỏi nỗ lực lớn.
-
-Dùng subprocess? Không, phải dùng thư viện chuyên dụng như python-gvm.
-
-Không giống như Nmap hay Nuclei là các công cụ dòng lệnh đơn lẻ, OpenVAS là một hệ thống quản lý lỗ hổng hoàn chỉnh với kiến trúc client-server phức tạp. Nó bao gồm nhiều thành phần chạy nền (database, scanner, manager...).
-
-Do đó, bạn không thể điều khiển nó trực tiếp bằng subprocess như các công cụ trước. Thay vào đó, bạn phải giao tiếp với dịch vụ của OpenVAS thông qua một giao thức chuyên dụng gọi là GMP (Greenbone Management Protocol).
-
-Để dễ hình dung:
-
-Nmap/Trivy giống như một chiếc tuốc nơ vít: một công cụ đơn giản bạn dùng cho một việc cụ thể.
-
-OpenVAS/GVM giống như một nhà máy tự động: bạn phải thiết lập, cấu hình và sau đó ra lệnh cho cả một dây chuyền hoạt động.
-
 ## Hướng dẫn dùng Snyk 
 Tạo tài khoản Snyk: Đăng ký một tài khoản miễn phí tại https://snyk.io/.
 
