@@ -11,9 +11,10 @@ def _is_cve_id_format(keyword: str) -> bool:
     return bool(re.match(r'^CVE-\d{4}-\d{4,}$', keyword, re.IGNORECASE))
 
 # --- THAY ĐỔI: Thêm tham số exact_score ---
-def search_cves(keyword: str, console: Console, min_cvss: float = 0.0, exact_score: float = None) -> list:
+# --- THAY ĐỔI: Thêm tham số 'year' ---
+def search_cves(keyword: str, console: Console, year: int = None, min_cvss: float = 0.0, exact_score: float = None) -> list:
     """
-    Tìm kiếm và lấy TOÀN BỘ CVE từ API của NIST.
+    Tìm kiếm CVE từ API của NIST. Ưu tiên tìm theo năm nếu được cung cấp.
     """
     all_vulnerabilities = []
     start_index = 0
@@ -21,11 +22,23 @@ def search_cves(keyword: str, console: Console, min_cvss: float = 0.0, exact_sco
     total_results_known = 0
     
     while True:
-        params = {'resultsPerPage': results_per_page, 'startIndex': start_index}
-        if _is_cve_id_format(keyword):
+        params = {
+            'resultsPerPage': results_per_page,
+            'startIndex': start_index
+        }
+
+        # --- THAY ĐỔI: Ưu tiên tìm theo năm ---
+        if year:
+            print(f"🛰️  Đang truy vấn API của NIST cho các CVE trong năm: {year}...")
+            params['pubStartDate'] = f"{year}-01-01T00:00:00.000"
+            params['pubEndDate'] = f"{year}-12-31T23:59:59.000"
+        elif _is_cve_id_format(keyword):
+            print(f"🛰️  Đang truy vấn API của NIST cho ID: {keyword}...")
             params['cveId'] = keyword
         else:
+            print(f"🛰️  Đang truy vấn API của NIST cho từ khóa: '{keyword}'...")
             params['keywordSearch'] = keyword
+        # ------------------------------------
 
         try:
             status_text = f"Đang tải kết quả... Đã tìm thấy {len(all_vulnerabilities)}/{total_results_known or '??'} CVE"

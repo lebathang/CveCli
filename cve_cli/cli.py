@@ -126,17 +126,29 @@ def display_cve_details(cve: dict):
     )
     console.print(panel)
 
-# THAY THẾ HOÀN TOÀN HÀM SEARCH
-@app.command(name="search", help="🔎 Tìm kiếm thông tin CVE theo từ khóa hoặc ID.")
-def search(
-    keyword: Annotated[str, typer.Argument(help="Từ khóa hoặc ID để tìm kiếm CVE.")],
+# --- THAY ĐỔI: Thêm option --year và cập nhật logic ---
+@app.command(name="search", help="🔎 Tìm kiếm thông tin chi tiết về một CVE.")
+def search_command(
+    keyword: Annotated[str, typer.Argument(help="Từ khóa hoặc ID. Bỏ trống nếu tìm theo năm.")] = "",
+    year: Annotated[int, typer.Option("--year", "-y", help="Tìm tất cả CVE được công bố trong một năm cụ thể.")] = None,
     min_score: Annotated[float, typer.Option("--min-score", help="Lọc CVE có điểm từ mức này trở lên.")] = 0.0,
     exact_score: Annotated[float, typer.Option("--exact-score", help="Lọc CVE có điểm chính xác bằng mức này.")] = None
 ):
     """
-    Tìm kiếm TOÀN BỘ CVE và hiển thị kết quả theo từng trang.
+    Tìm kiếm thông tin chi tiết về các lỗ hổng CVE từ cơ sở dữ liệu của NIST.
     """
-    all_results = search_cves(keyword=keyword, console=console)
+    if year and keyword:
+        console.print("[bold red]Lỗi: Không thể sử dụng cùng lúc từ khóa tìm kiếm và --year.[/bold red]")
+        raise typer.Exit()
+    
+    if not year and not keyword:
+         console.print("[bold red]Lỗi: Cần cung cấp từ khóa tìm kiếm hoặc --year.[/bold red]")
+         raise typer.Exit()
+         
+    # Sử dụng 'year' nếu có, nếu không thì dùng 'keyword'
+    search_term = keyword if keyword else ""
+
+    all_results = search_cves(keyword=search_term, console=console, year=year, min_cvss=min_score, exact_score=exact_score)
 
     if not all_results:
         console.print("[yellow]Không tìm thấy CVE nào phù hợp.[/yellow]")
