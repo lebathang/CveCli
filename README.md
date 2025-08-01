@@ -95,7 +95,11 @@ python -m cve_cli.cli search "API" --exact-score 9.8
 
 ### 3. Lấy Giải pháp bằng AI (solution)
 
-tìm giải pháp CVE bằng trí tuệ nhân tạo
+tìm giải pháp CVE bằng trí tuệ nhân tạo theo cấu trúc câu hỏi sau: 
+
+1.  **Tóm tắt Nguy cơ:** Giải thích ngắn gọn nguy cơ chính của lỗ hổng này.
+2.  **Phân tích Tác động:** Ai hoặc hệ thống nào có thể bị ảnh hưởng?
+3.  **Các bước Giảm thiểu & Khắc phục:** Liệt kê các hành động cụ thể, ưu tiên các giải pháp chính thức như nâng cấp phiên bản.
 
 ```Bash
 
@@ -170,7 +174,7 @@ sudo python -m cve_cli.cli nmap-scan scanme.nmap.org -t aggressive
 
 ```Bash
 # Thay bằng dải mạng của bạn`
-python -m cve_cli.cli nmap-scan 192.168.1.0/24 --ping
+python -m cve_cli.cli nmap-scan scanme.nmap.org --ping
 ```
 
 Quét sâu để tìm phiên bản dịch vụ:
