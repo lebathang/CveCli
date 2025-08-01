@@ -85,6 +85,14 @@ Kết quả sẽ được phân trang, sử dụng n (next), p (previous), và q
 python -m cve_cli.cli search "SQL Injection" --min-score 9.0
 ```
 
+Tìm tất cả CVE có từ khóa "API" và điểm CVSS chính xác là 9.8
+
+```Bash
+
+python -m cve_cli.cli search "API" --exact-score 9.8
+```
+
+
 ### 3. Lấy Giải pháp bằng AI (solution)
 
 tìm giải pháp CVE bằng trí tuệ nhân tạo
@@ -94,13 +102,6 @@ tìm giải pháp CVE bằng trí tuệ nhân tạo
 python -m cve_cli.cli solution CVE-2023-34048
 ```
 
-
-Tìm tất cả CVE có từ khóa "API" và điểm CVSS chính xác là 9.8
-
-```Bash
-
-python -m cve_cli.cli search "API" --exact-score 9.8
-```
 
 ---
 > [!NOTE]  
