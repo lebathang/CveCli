@@ -243,7 +243,7 @@ python -m cve_cli.cli snyk-scan .
 # Hoặc chỉ định một thư mục khác
 # python -m cve_cli.cli snyk-scan /duong/dan/den/project/khac
 ```
-
+---
 🤝 Đóng Góp
 Mọi đóng góp đều được chào đón! Vui lòng tạo Pull Request hoặc mở một Issue để thảo luận về những thay đổi bạn muốn thực hiện.
 
