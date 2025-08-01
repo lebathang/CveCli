@@ -82,7 +82,7 @@ Kết quả sẽ được phân trang, sử dụng n (next), p (previous), và q
 
 ```Bash
 
-python -m cve_cli.cli search "SQL Injection" --min-cvss 9.0
+python -m cve_cli.cli search "SQL Injection" --min-score 9.0
 ```
 
 ### 3. Lấy Giải pháp bằng AI (solution)
